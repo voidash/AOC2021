@@ -1,22 +1,9 @@
+use crate::utils;
 
-use std::io::Read;
-use std::fs::File;
 
 // https://adventofcode.com/2021/day/1 
-fn read_file_for_input() -> Vec<i32> {
-    let mut data = String::new();
-    let mut read_file = File::open("./input/day1.txt").expect("unable to open file");
-    read_file.read_to_string(&mut data).expect("Unable to read data");
-
-    data.split("\n").into_iter().map(
-        |single| {
-            single.parse::<i32>().unwrap()
-        }
-    ).collect() 
-}
-
 pub fn day_1_sonar_sweep() -> u32{
-    let sonar_ping_depth = read_file_for_input(); 
+    let sonar_ping_depth = utils::i32_array_from_file(); 
     let mut counter = 0;
     let mut prev_measure = sonar_ping_depth[1];
 
@@ -26,5 +13,20 @@ pub fn day_1_sonar_sweep() -> u32{
         }
         prev_measure = depth;
     });
+    counter as u32
+}
+
+pub fn day_1_sonar_sweep_part2() -> u32 {
+    let sonar_ping_depth = utils::i32_array_from_file(); 
+    let mut counter = 0;
+    let mut prev_sum = sonar_ping_depth[0]+sonar_ping_depth[1]+sonar_ping_depth[2];
+    for i in 0..sonar_ping_depth.len()-2 {
+        let buf_sum = sonar_ping_depth[i]+sonar_ping_depth[i+1]+sonar_ping_depth[i+2];
+        if buf_sum > prev_sum {
+            counter+=1;
+        }
+        prev_sum = buf_sum;
+    }
+
     counter as u32
 }
