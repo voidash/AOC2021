@@ -8,6 +8,7 @@ mod day4_bingo;
 mod day5_hydrothermal_venture;
 mod day6_lanternfish;
 mod day7_the_treachery_of_whales;
+mod day8_seven_segment_search;
 
 
 fn main() {
@@ -22,7 +23,9 @@ fn main() {
     // println!("{}", day5_hydrothermal_venture::part2());
     //  println!("{}",day6_lanternfish::part2());
     //  println!("{}",day7_the_treachery_of_whales::part1());
-     println!("{}",day7_the_treachery_of_whales::part2());
+    //  println!("{}",day7_the_treachery_of_whales::part2());
+     println!("{}",day8_seven_segment_search::part1());
+
 
 
 
