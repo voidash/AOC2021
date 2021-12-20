@@ -34,7 +34,7 @@ pub fn read_from_url(url: &str) -> String {
 }
 
 pub fn read_file_for_input(day: &str) -> String {
-     let mut data = String::new();
+    let mut data = String::new();
     let mut read_file = File::open(format!("./input/{}.txt",day)).expect("unable to open file");
     read_file.read_to_string(&mut data).expect("Unable to read data");
 
