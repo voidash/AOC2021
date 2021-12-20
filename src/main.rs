@@ -24,7 +24,7 @@ fn main() {
     //  println!("{}",day6_lanternfish::part2());
     //  println!("{}",day7_the_treachery_of_whales::part1());
     //  println!("{}",day7_the_treachery_of_whales::part2());
-     println!("{}",day8_seven_segment_search::part1());
+     println!("{}",day8_seven_segment_search::part2());
 
 
 
