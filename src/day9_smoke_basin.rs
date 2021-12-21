@@ -47,23 +47,25 @@ pub fn already_visited(visited: &Vec<(i32,i32)>, pos_y:i32, pos_x: i32 ) -> bool
 }
 
 pub fn find_basins(visited: &mut Vec<(i32,i32)>,heightmap: &Vec<Vec<u8>>,pos_x:i32,pos_y:i32) -> u32 {
+
+    println!("{}",heightmap[pos_y as usize][pos_x as usize]);
+    visited.push((pos_y,pos_x));
     let mut count = 0;
 
     if pos_y <= 0 || pos_y >= heightmap.len() as i32 { return 0;}
     if pos_x <= 0 || pos_x >= heightmap[0].len() as i32 { return 0;}
     if heightmap[pos_y as usize][pos_x as usize] == 9 { return 0; }
 
-    let mut found = false;
 
     for i in [-1i32,1] {
-        if heightmap[(pos_y) as usize][(pos_x+i) as usize] == heightmap[pos_y as usize][pos_x as usize]+1  {
+        if  heightmap[(pos_y) as usize][(pos_x+i) as usize] != 9 {
             if !already_visited(visited, pos_y, pos_x+i) {
                 count += find_basins(visited ,heightmap, pos_x+i, pos_y);
                 count += 1;
                 visited.push((pos_y,pos_x+i));
             }
         }
-        if heightmap[(pos_y+i) as usize][(pos_x) as usize] == heightmap[pos_y as usize][pos_x as usize]+1  {
+        if heightmap[(pos_y+i) as usize][(pos_x) as usize] != 9 {
             if !already_visited(visited, pos_y+i, pos_x) {
                 count += find_basins(visited,heightmap, pos_x, pos_y+i);
                 count += 1;
@@ -71,14 +73,12 @@ pub fn find_basins(visited: &mut Vec<(i32,i32)>,heightmap: &Vec<Vec<u8>>,pos_x:i
             }
         } 
     }
-
     count
 }
 
 pub fn part2() -> u32 {
     let heightmap = get_heightmap();
     let mut basins: Vec<u32> = Vec::new();
-    let mut visited: Vec<(i32,i32)> = Vec::new();
     for i in 1..heightmap.len() {
         for j in 1..heightmap[0].len() {
             if heightmap[i][j] < heightmap[i][j-1] && 
@@ -86,7 +86,8 @@ pub fn part2() -> u32 {
             heightmap[i][j] < heightmap[i+1][j] && 
             heightmap[i][j] < heightmap[i-1][j] 
             {
-               basins.push(find_basins(&mut visited,&heightmap, j as i32, i as i32));
+               let mut visited: Vec<(i32,i32)> = Vec::new();
+               basins.push(1+find_basins(&mut visited,&heightmap, j as i32, i as i32));
             }
         }
     }
@@ -103,6 +104,8 @@ pub fn part2() -> u32 {
         }
         basins[position] = 0;
         three_prods*=largest;
+        println!("{}",largest);
+        println!("{}",three_prods);
 
     }
     three_prods
