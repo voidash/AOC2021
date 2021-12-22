@@ -104,8 +104,6 @@ pub fn part2() -> u32 {
         }
         basins[position] = 0;
         three_prods*=largest;
-        println!("{}",largest);
-        println!("{}",three_prods);
 
     }
     three_prods

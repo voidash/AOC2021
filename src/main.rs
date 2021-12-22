@@ -11,6 +11,7 @@ mod day7_the_treachery_of_whales;
 mod day8_seven_segment_search;
 mod day9_smoke_basin;
 mod day10_syntax_scoring;
+mod day11_dumbo_octopus;
 
 
 
@@ -30,9 +31,10 @@ fn main() {
     //  println!("{}",day8_seven_segment_search::part1());
     //  println!("{}",day8_seven_segment_search::part2());
     // println!("{}",day9_smoke_basin::part1());
-    println!("{}",day9_smoke_basin::part2());
+    // println!("{}",day9_smoke_basin::part2());
     // println!("{}",day10_syntax_scoring::part1());
     // println!("{}",day10_syntax_scoring::part2());
+    println!("{}",day11_dumbo_octopus::part1());
 
 
 
