@@ -63,5 +63,23 @@ pub fn part1() -> u32{
 }
 
 pub fn part2() -> u32{ 
-    todo!();
+    let mut octopus_grid = read_octopus_grid();
+    let mut total_flashes = 0;
+    let mut counter = 0;
+    loop {
+    counter+=1;
+    let mut recent_exploded : Vec<(usize,usize)> = Vec::new();
+    let mut flashes = 0;
+    for j in 0..octopus_grid.len() {
+        for i in 0..octopus_grid[0].len() {
+              flashes += octopuses_flash(&mut recent_exploded,&mut octopus_grid, j as isize, i as isize);
+        }
+    }
+    if flashes as usize == octopus_grid.len() * octopus_grid[0].len() {
+        break;
+    }
+    // println!("counter: {}",counter);
+    // println!("total_flashes: {}",flashes);
+}
+    counter
 }

@@ -34,7 +34,8 @@ fn main() {
     // println!("{}",day9_smoke_basin::part2());
     // println!("{}",day10_syntax_scoring::part1());
     // println!("{}",day10_syntax_scoring::part2());
-    println!("{}",day11_dumbo_octopus::part1());
+    // println!("{}",day11_dumbo_octopus::part1());
+    println!("{}",day11_dumbo_octopus::part2());
 
 
 
