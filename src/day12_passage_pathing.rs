@@ -1,18 +1,20 @@
 use crate::utils;
+use std::rc::Rc;
+use std::cell::RefCell;
+use std::rc::Weak;
 
-
-#[derive(Debug)]
+#[derive(Debug,Clone)]
 enum CaveType {
     Start,
     End,
     Large,
     Small
 }
-#[derive(Debug)]
-struct Cave<'a> {
+#[derive(Debug,Clone)]
+struct Cave {
     cave_type: CaveType,
     name:String,
-    connects: Vec<&'a mut Cave<'a>>,
+    connects: RefCell<Vec<Weak<Cave>>>,
 }
 
 fn get_cave_type_from_string(cave: &str) -> CaveType {
@@ -30,46 +32,50 @@ fn get_cave_type_from_string(cave: &str) -> CaveType {
     }    
 }
 
-fn get_caves<'a>() -> Vec<Cave<'a>> {
+fn get_caves() -> Vec<Rc<Cave>> {
     let data = utils::read_file_for_input("day12");
-    let mut caves: Vec<Cave> = Vec::new();
-    let all_paths = data.lines().collect::<Vec<&str>>();
+    let mut caves: Vec<Rc<Cave>> = Vec::new();
+
+   let all_paths = data.lines().collect::<Vec<&str>>().iter().map(|&d| {d.to_string()}).collect::<Vec<String>>();
    
-    for path in all_paths{
+    for path in all_paths.iter(){
             let paths = path.split("-").collect::<Vec<&str>>();
             for p  in paths{
-                caves.push(Cave{
+                caves.push(Rc::new(Cave{
                     cave_type: get_cave_type_from_string(p),
                     name: p.to_string(),
-                    connects: Vec::new()
-                });
+                    connects: RefCell::new(vec![])
+                }));
             }
     }
-    for path in all_paths {
+    for path in all_paths.iter() {
             let paths = path.split("-").collect::<Vec<&str>>();
-            caves.iter_mut().find(|&d| {
+            let c1= caves.iter().find(|d| {
                 d.name == paths[0]
-            }).unwrap().connects.push(
-                caves.iter_mut().find(|&d|{
-                    d.name == paths[1]
-                }).unwrap()
-            );
+            }).unwrap();
+            let mut c1_vec = c1.connects.borrow_mut();
 
-            caves.iter_mut().find(|&d| {
+            let c2= caves.iter().find(|d| {
                 d.name == paths[1]
-            }).unwrap().connects.push(
-                caves.iter_mut().find(|&d|{
-                    d.name == paths[0]
-                }).unwrap()
-            );
+            }).unwrap();
+            c1_vec.push(Rc::downgrade(c2));
+
+            let mut c2_vec = c2.connects.borrow_mut();
+            c2_vec.push(Rc::downgrade(c1));
     }
 
     caves
 }
 pub fn part1() -> u32 {
     let caves = get_caves();
-    println!("{:?}",caves);
-    12
+
+    for connected in caves[0].connects.borrow().iter() {
+        println!("{}",connected.upgrade().unwrap().name);
+
+    }
+    
+
+    32
 }
 
 pub fn part2() -> u32 {
