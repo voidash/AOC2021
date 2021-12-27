@@ -14,7 +14,7 @@ enum CaveType {
 struct Cave {
     cave_type: CaveType,
     name:String,
-    connects: RefCell<Vec<Weak<Cave>>>,
+    connects: RefCell<Vec<Rc<Cave>>>,
 }
 
 fn get_cave_type_from_string(cave: &str) -> CaveType {
@@ -48,6 +48,7 @@ fn get_caves() -> Vec<Rc<Cave>> {
                 }));
             }
     }
+
     for path in all_paths.iter() {
             let paths = path.split("-").collect::<Vec<&str>>();
             let c1= caves.iter().find(|d| {
@@ -58,10 +59,13 @@ fn get_caves() -> Vec<Rc<Cave>> {
             let c2= caves.iter().find(|d| {
                 d.name == paths[1]
             }).unwrap();
-            c1_vec.push(Rc::downgrade(c2));
+            // c1_vec.push(Rc::downgrade(c2));
+
+            c1_vec.push(c2.to_owned());
 
             let mut c2_vec = c2.connects.borrow_mut();
-            c2_vec.push(Rc::downgrade(c1));
+            c2_vec.push(c1.to_owned());
+            // c2_vec.push(Rc::downgrade(c1));
     }
 
     caves
@@ -69,10 +73,14 @@ fn get_caves() -> Vec<Rc<Cave>> {
 pub fn part1() -> u32 {
     let caves = get_caves();
 
-    for connected in caves[0].connects.borrow().iter() {
-        println!("{}",connected.upgrade().unwrap().name);
+    let mut stack : Vec<Rc<Cave>> = Vec::new();
+    // let mut visited: Vec<Rc<Cave>> = Vec::new();
 
+    // stack.push(caves[0]);
+    for connected in caves[0].connects.borrow().iter() {
+        println!("{}",connected.name);
     }
+
     
 
     32
