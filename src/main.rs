@@ -13,7 +13,8 @@ mod utils;
 // mod day10_syntax_scoring;
 // mod day11_dumbo_octopus;
 // mod day12_passage_pathing_with_struct;
-mod day12_passage_pathings;
+// mod day12_passage_pathings;
+mod day13_transparent_origami;
 
 
 
@@ -39,7 +40,9 @@ fn main() {
     // println!("{}",day11_dumbo_octopus::part1());
     // println!("{}",day11_dumbo_octopus::part2());
 
-    println!("{}",day12_passage_pathings::part1());
+    // println!("{}",day12_passage_pathings::part1());
+    
+    println!("{}", day13_transparent_origami::part1());
 
 
 

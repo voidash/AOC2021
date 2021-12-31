@@ -40,48 +40,55 @@ fn create_map() -> HashMap<String,Vec<String>> {
 }
 
 pub fn part1() -> u32 {
-    let mut get_map = create_map();
-    println!("{:?}",get_map);
-    let mut keys : Vec<&str> = vec!["start"];
+    let map = create_map();
+    println!("{:?}",map);
 
-    let mut count = 0;
-    let mut i = 0;
+    let mut visited_path: HashMap<&str,Vec<&str>> = HashMap::new();
 
+    let mut stack : Vec<&str> =   vec!["start"];
+    let mut small_visited_caves = Vec::<&str>::new();
+
+    let mut possible_ways = 0;
     loop {
-        if i == keys.len() {
+        println!("{:?}",stack);
+        if stack.len() == 0 {
             break;
         }
-        println!("{:?}",count);
+        let current_cave = stack.pop().unwrap();
 
-        let paths = get_map.get(keys[i]).unwrap();
-
-        if keys[i] == "end" {
-            count+=1;
+        if small_visited_caves.contains(&current_cave) {
+            visited_path.pop();
             continue;
         }
-
-        for path in paths {
-
-                if !keys[i..].contains(&path.as_str()) {
-                    
-            let mut visited_small_caves :Vec<&str> = Vec::new();
-            visited_small_caves.extend_from_slice(&keys[i..]);
-
-            if path.as_str() == path.to_lowercase() {
-                visited_small_caves.push(path);
-            }
-
-                 keys.push(&path.as_str()); 
-
-            }
+        if current_cave.to_lowercase() == current_cave {
+            small_visited_caves.push(current_cave);
         }
 
-        i+=1;
-    }
-    println!("{}",count);
-    12
+        visited_path.push(current_cave);
+        for connected_cave in map.get(current_cave).unwrap(){
+            if connected_cave == "start" {
+                continue;
+            }
+            if connected_cave == "end" {
+                visited_path.push("end");
+                // println!("{:?}", visited_path);
+                possible_ways+=1;
+                visited_path.pop();
+                continue;
+            }
+            if small_visited_caves.contains(&connected_cave.as_str()) {
+                //remove the path from stack 
+                continue;
+            }
+            stack.push(connected_cave.as_str());
+        }
+        
 
-}
+        }
+        possible_ways as u32
+    }
+
+
 
 pub fn part2() -> u32 {
 
