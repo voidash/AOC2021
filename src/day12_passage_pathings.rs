@@ -39,6 +39,9 @@ fn create_map() -> HashMap<String,Vec<String>> {
     h_map
 }
 
+
+// iterative  
+
 pub fn part1() -> u32 {
     let map = create_map();
     println!("{:?}",map);
