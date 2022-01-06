@@ -2,18 +2,19 @@ use crate::utils::read_file_for_input;
 use std::{collections::HashMap, hash::Hash};
 
 
-fn separate_polymer_template_and_insertion_rules(input_data: String) -> (String,HashMap<&'static str,&'static str >) {
-    let (polymer_template, insertion_rules) = input_data.clone().split_once("\n").unwrap();
+fn separate_polymer_template_and_insertion_rules(input_data: String) -> (String,HashMap<String,String>) {
+    let (polymer_template, insertion_rules) = input_data.split_once("\n").unwrap();
     let mut insertion_set = HashMap::new();
 
 
     for line in insertion_rules.trim().lines() {
         let (a,b) = line.split_once("->").unwrap();
-        insertion_set.insert(a.trim(), b.trim());
+        insertion_set.insert(a.trim().to_string(), b.trim().to_string());
     }
-    (String::from(polymer_template.trim()), insertion_set)
+
+    (polymer_template.trim().to_string(), insertion_set)
 }
-fn part1(mut template: String, insertion_set: HashMap<&'static str, &'static str>,step: u8) -> i32 {
+fn part1(mut template: String, insertion_set: HashMap<String,String>,step: u8) -> i32 {
     let mut count_map:HashMap<char,usize> = HashMap::new();
     for _ in 0..step{
     let mut buffer_string= String::new();
@@ -23,7 +24,7 @@ fn part1(mut template: String, insertion_set: HashMap<&'static str, &'static str
 
         if let Some(data) = insertion_set.get(str_pair) {
             buffer_string = format!("{}{}",buffer_string,{
-                format!("{}{}",String::from(&strp[0..1]),String::from(*data))
+                format!("{}{}",String::from(&strp[0..1]),String::from(data))
             });
         }
     }
