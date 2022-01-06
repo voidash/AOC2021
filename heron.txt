@@ -1,0 +1,35 @@
+
+running 1 test
+
+running 1 test
+test day14_extended_polymerization::test::check_for_smaller_input ... ok
+
+successes:
+
+---- day14_extended_polymerization::test::check_for_smaller_input stdout ----
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+C
+{'P': 2716, 'V': 3356, 'B': 1078, 'O': 2812, 'H': 3572, 'K': 769, 'F': 2048, 'S': 860, 'N': 1722, 'C': 514}
+3572 - 514
+3058
+
+
+successes:
+    day14_extended_polymerization::test::check_for_smaller_input
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 1 test
+
+running 1 test
+test day14_extended_polymerization::test::check_for_smaller_input has been running for over 60 seconds

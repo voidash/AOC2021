@@ -15,7 +15,10 @@ mod utils;
 // mod day12_passage_pathing_with_struct;
 // mod day12_passage_pathings;
 // mod day13_transparent_origami;
-mod day14_extended_polymerization;
+// mod day14_extended_polymerization;
+// mod day15_chiton;
+mod day_15_djikstra;
+
 
 
 
@@ -43,7 +46,6 @@ fn main() {
     // println!("{}",day11_dumbo_octopus::part2());
     // println!("{}",day12_passage_pathings::part1());
     // println!("{}", day13_transparent_origami::part1());
-
 
 
 

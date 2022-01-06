@@ -16,7 +16,8 @@ fn separate_polymer_template_and_insertion_rules(input_data: String) -> (String,
 }
 fn part1(mut template: String, insertion_set: HashMap<String,String>,step: u8) -> i32 {
     let mut count_map:HashMap<char,usize> = HashMap::new();
-    for _ in 0..step{
+    for i in 0..step{
+        println!("{}",i);
     let mut buffer_string= String::new();
     for i in 0..template.len()-1 {
         let str_pair = &template[i..i+2];
@@ -94,7 +95,7 @@ CN -> C"#;
 // let (template, insertion_set) = separate_polymer_template_and_insertion_rules(String::from(check_data));
 let val = utils::read_file_for_input("day14");
 let (template, insertion_set) = separate_polymer_template_and_insertion_rules(val);
-println!("{}",part1(template, insertion_set,10));
+println!("{}",part1(template, insertion_set,40));
 
 
 
