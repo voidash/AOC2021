@@ -17,7 +17,8 @@ mod utils;
 // mod day13_transparent_origami;
 // mod day14_extended_polymerization;
 // mod day15_chiton;
-mod day_15_djikstra;
+// mod day_15_djikstra;
+mod day16_packet_decoder;
 
 
 
