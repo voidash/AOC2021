@@ -18,7 +18,10 @@ mod utils;
 // mod day14_extended_polymerization;
 // mod day15_chiton;
 // mod day_15_djikstra;
-mod day16_packet_decoder;
+// mod day16_packet_decoder;
+mod day17_trajectory;
+
+
 
 
 

@@ -10,6 +10,7 @@ enum CaveType {
     Large,
     Small
 }
+
 #[derive(Debug,Clone)]
 struct Cave {
     cave_type: CaveType,

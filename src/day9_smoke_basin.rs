@@ -26,6 +26,8 @@ pub fn get_heightmap() -> Vec<Vec<u8>> {
 pub fn part1() -> u32{
     let heightmap = get_heightmap();
     let mut risk_level_sum: u32 = 0;
+
+
     for i in 1..heightmap.len() {
         for j in 1..heightmap[0].len() {
             if heightmap[i][j] < heightmap[i][j-1] && 

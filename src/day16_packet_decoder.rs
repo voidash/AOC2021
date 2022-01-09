@@ -141,7 +141,6 @@ mod test {
 
     }
 
-
     #[test]
     fn test_for_single_packet() {
     parse_packets_and_return_sum_of_version_numbers("620080001611562C8802118E34");
